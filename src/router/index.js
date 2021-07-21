@@ -5,6 +5,7 @@ import About from '../pages/About.vue'
 import PassengerDetails from '../pages/PassengerDetails.vue'
 import PassengerAirline from '../pages/PassengerAirline.vue'
 import Details from '../layouts/Details.vue'
+import NotFound from '../pages/NotFound.vue'
 
 const routes = [
     {
@@ -24,18 +25,29 @@ const routes = [
         props: true,
         children: [
             {
-                path:'',
+                path: '',
                 name: 'PassengerDetails',
                 component: PassengerDetails,
             },
             {
-                path:'airline',
-                name:'PassengerAirline',
-                component:PassengerAirline,
-                props:true
-            }
+                path: 'airline',
+                name: 'PassengerAirline',
+                component: PassengerAirline,
+                props: true,
+            },
         ],
-    }
+    },
+    {
+        path: '/404/:resource',
+        name: '404Resource',
+        component: NotFound,
+        props: true,
+    },
+    {
+        path: '/:catchAll(.*)',
+        name: 'NotFound',
+        component: NotFound,
+    },
 ]
 
 const router = createRouter({
