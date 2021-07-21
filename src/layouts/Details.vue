@@ -27,6 +27,8 @@ export default {
                         name: '404Resource',
                         params: { resource: 'traveler'}
                     })
+                }else{
+                    this.$router.push({name:'NetworkError'})
                 }
             })
     },

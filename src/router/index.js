@@ -6,6 +6,7 @@ import PassengerDetails from '../pages/PassengerDetails.vue'
 import PassengerAirline from '../pages/PassengerAirline.vue'
 import Details from '../layouts/Details.vue'
 import NotFound from '../pages/NotFound.vue'
+import NetWorkErr from '../pages/NetworkErr.vue'
 
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
         path: '/:catchAll(.*)',
         name: 'NotFound',
         component: NotFound,
+    },
+    {
+        path: '/network-error',
+        name: 'NetworkError',
+        component: NetWorkErr,
     },
 ]
 
