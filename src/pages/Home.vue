@@ -1,7 +1,22 @@
 <script>
 import TravelerCard from '../components/TravelerCard.vue'
+import TravelService from '../services/TravelService.js'
+import { watchEffect } from '@vue/runtime-core'
 export default {
-    components:{ TravelerCard }
+    name:'HomePage',
+    components:{ TravelerCard },
+    data(){
+        return {
+            travelers: null
+        }
+    },
+    created(){
+        watchEffect(() => {
+            TravelService.getPassengers().then(res=>{
+                this.travelers = res.data.data
+            }).catch(err => console.log(err))
+        })
+    }
 }
 </script>
 <template>
@@ -36,19 +51,6 @@ export default {
         <span class="text-indigo-600">This is our traveler</span>
       </h2>
     </div>
-    <div class="
-        max-w-screen-xl
-        px-4
-        py-4
-        mx-auto
-        sm:px-6
-        lg:py-1
-        lg:px-8
-        lg:flex
-        lg:items-center
-        lg:justify-between"
-      >
-        <TravelerCard /> 
-    </div>
+    <TravelerCard v-for="item in travelers" :key="item._id" :traveler="item" /> 
   </div>
 </template>

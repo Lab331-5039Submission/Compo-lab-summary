@@ -11,6 +11,6 @@ const TravelAPI = axios.create({
 
 export default {
     getPassengers(){
-        return TravelAPI.get('/passenger?page=0&size=20')  
+        return TravelAPI.get('/passenger?page=0&size=10')  
     }
 }
