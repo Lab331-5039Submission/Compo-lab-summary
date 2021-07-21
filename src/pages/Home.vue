@@ -1,50 +1,54 @@
-<template>
-    <default-layout>
-        <h1 class="text-2xl font-bold">Welcome to Vue3Stackter, {{ name }}</h1>
-
-        <div class="mt-8">
-            <input
-                v-model="newName"
-                type="text"
-                class="p-2 border border-gray-300 rounded focus:ring-2"
-            />
-            <v-button
-                :class="{ 'pointer-events-none opacity-40': !newName }"
-                @click.native="saveName"
-            >
-                Save
-            </v-button>
-        </div>
-    </default-layout>
-</template>
-
-<script setup>
-import { useMeta } from 'vue-meta'
-import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-
-import DefaultLayout from '../layouts/Default.vue'
-import VButton from '../components/VButton.vue'
-
-useMeta({
-    title: 'Homepage',
-})
-
-const router = useRouter()
-
-const store = useStore()
-
-// name
-// const name = computed(() => store.state.user.name)
-const name = computed(() => store.getters['user/nameUppercased'])
-const newName = ref('')
-function saveName() {
-    if (newName.value === '') {
-        return
-    }
-    store.dispatch('user/saveName', newName.value)
-    newName.value = ''
-    router.push('/about')
+<script>
+import TravelerCard from '../components/TravelerCard.vue'
+export default {
+    components:{ TravelerCard }
 }
 </script>
+<template>
+  <div class="bg-gray-50">
+    <div
+      class="
+        max-w-screen-xl
+        px-4
+        py-12
+        mx-auto
+        sm:px-6
+        lg:py-16
+        lg:px-8
+        lg:flex
+        lg:items-center
+        lg:justify-between
+      "
+    >
+      <h2
+        class="
+          text-3xl
+          font-extrabold
+          leading-9
+          tracking-tight
+          text-gray-900
+          sm:text-4xl
+          sm:leading-10
+        "
+      >
+        Welcome to our Home page 
+        <br />
+        <span class="text-indigo-600">This is our traveler</span>
+      </h2>
+    </div>
+    <div class="
+        max-w-screen-xl
+        px-4
+        py-4
+        mx-auto
+        sm:px-6
+        lg:py-1
+        lg:px-8
+        lg:flex
+        lg:items-center
+        lg:justify-between"
+      >
+        <TravelerCard /> 
+    </div>
+  </div>
+</template>

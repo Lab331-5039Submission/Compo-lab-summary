@@ -1,33 +1,50 @@
 <template>
-    <default-layout>
-        <h1 class="text-2xl font-bold">About {{ name }}</h1>
-
-        <p class="my-8">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque
-            voluptatem consequuntur molestiae cumque recusandae eos non,
-            consectetur, repellat architecto illo nobis, voluptatum dolor!
-            Reprehenderit, nam veniam quibusdam ab nulla rem.
+  <div class="bg-gray-50">
+    <div
+      class="
+        max-w-screen-xl
+        px-4
+        py-12
+        mx-auto
+        sm:px-6
+        lg:py-16
+        lg:px-8
+        lg:flex
+        lg:items-center
+        lg:justify-between
+      "
+    >
+      <h2
+        class="
+          text-3xl
+          font-extrabold
+          leading-9
+          tracking-tight
+          text-gray-900
+          sm:text-4xl
+          sm:leading-10
+        "
+      >
+        This is a about page
+        <br />
+        <span class="text-indigo-600">Wonderful </span>
+      </h2>
+    </div>
+    <div class="
+        max-w-screen-xl
+        px-4
+        py-4
+        mx-auto
+        sm:px-6
+        lg:py-1
+        lg:px-8
+        lg:flex
+        lg:items-center
+        lg:justify-between"
+      >
+        <p class="text-grey-700 text-xl">
+            about page you know?
         </p>
-        <router-link to="/">
-            <v-button>Back to home</v-button>
-        </router-link>
-    </default-layout>
+    </div>
+  </div>
 </template>
-
-<script setup>
-import { useMeta } from 'vue-meta'
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-
-import DefaultLayout from '../layouts/Default.vue'
-import VButton from '../components/VButton.vue'
-
-useMeta({
-    title: 'About Page',
-})
-
-const store = useStore()
-
-// name
-const name = computed(() => store.state.user.name)
-</script>
