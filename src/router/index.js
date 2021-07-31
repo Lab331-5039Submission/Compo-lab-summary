@@ -16,6 +16,13 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        beforeEnter: (to) => {
+            return TravelService.getPassengers()
+                .then((res) => {
+                    GStore.traveler = res.data.data
+                })
+                .catch((err) => console.log(err))
+        },
     },
     {
         path: '/about',
@@ -29,18 +36,19 @@ const routes = [
         props: true,
         beforeEnter: (to) => {
             return TravelService.getPassengerById(to.params.id)
-            .then((res) => {
-                GStore.details = res.data
-            }).catch((error) => {
-                if (error.response && error.response.status == 404) {
-                    return {
-                        name: '404Resource',
-                        params: { resource: 'event' },
+                .then((res) => {
+                    GStore.details = res.data
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status == 404) {
+                        return {
+                            name: '404Resource',
+                            params: { resource: 'event' },
+                        }
+                    } else {
+                        return { name: 'NetworkError' }
                     }
-                } else {
-                    return { name: 'NetworkError' }
-                }
-            })
+                })
         },
         children: [
             {
@@ -77,13 +85,20 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { top: 0 }
+        }
+    },
 })
 
-router.beforeEach(()=>{
+router.beforeEach(() => {
     NProgress.start()
 })
 
-router.beforeEach(()=>{
+router.beforeEach(() => {
     NProgress.done()
 })
 export default router

@@ -1,22 +1,9 @@
 <script>
 import TravelerCard from '../components/TravelerCard.vue'
-import TravelService from '../services/TravelService.js'
-import { watchEffect } from '@vue/runtime-core'
 export default {
     name:'HomePage',
     components:{ TravelerCard },
-    data(){
-        return {
-            travelers: null
-        }
-    },
-    created(){
-        watchEffect(() => {
-            TravelService.getPassengers().then(res=>{
-                this.travelers = res.data.data
-            }).catch(err => console.log(err))
-        })
-    }
+    inject:['GStore'],
 }
 </script>
 <template>
@@ -51,6 +38,6 @@ export default {
         <span class="text-indigo-600">This is our traveler</span>
       </h2>
     </div>
-    <TravelerCard v-for="item in travelers" :key="item._id" :traveler="item" /> 
+    <TravelerCard v-for="item in GStore.traveler" :key="item._id" :traveler="item" /> 
   </div>
 </template>
