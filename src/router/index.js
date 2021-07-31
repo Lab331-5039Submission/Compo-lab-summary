@@ -7,6 +7,8 @@ import PassengerAirline from '../pages/PassengerAirline.vue'
 import Details from '../layouts/Details.vue'
 import NotFound from '../pages/NotFound.vue'
 import NetWorkErr from '../pages/NetworkErr.vue'
+import TravelService from '../services/TravelService'
+import GStore from '../store/index'
 
 const routes = [
     {
@@ -24,6 +26,21 @@ const routes = [
         name: 'Details',
         component: Details,
         props: true,
+        beforeEnter: (to) => {
+            return TravelService.getPassengerById(to.params.id)
+            .then((res) => {
+                GStore.details = res.data
+            }).catch((error) => {
+                if (error.response && error.response.status == 404) {
+                    return {
+                        name: '404Resource',
+                        params: { resource: 'event' },
+                    }
+                } else {
+                    return { name: 'NetworkError' }
+                }
+            })
+        },
         children: [
             {
                 path: '',

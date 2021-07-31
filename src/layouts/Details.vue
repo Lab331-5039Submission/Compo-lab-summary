@@ -1,40 +1,41 @@
 <script>
-import TravelService from '../services/TravelService'
 export default {
-    name: 'Details',
-    props: ['id','airline'],
-    data() {
-        return {
-            details: null,
-        }
-    },
-    created() {
-        TravelService.getPassengerById(this.id)
-            .then((res) => {
-                this.details = res.data
-                console.log(this.details.length === 0)
-                if(this.details.length === 0){
-                    this.$router.push({
-                        name: '404Resource',
-                        params: { resource: 'traveler'}
-                    })
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-                if(err.res && err.res.status == 404){
-                    this.$router.push({
-                        name: '404Resource',
-                        params: { resource: 'traveler'}
-                    })
-                }else{
-                    this.$router.push({name:'NetworkError'})
-                }
-            })
+    inject: ['GStore'],
+    methods: {
+        edit() {
+            this.GStore.flashMessage = 'Traveller has been update for fight ' + this.GStore.details.trips
+            setTimeout(() => {
+                this.GStore.flashMessage = ''
+                this.$router.push({
+                    name: 'Home',
+                })
+            }, 5000)
+        },
     },
 }
 </script>
 
 <template>
-    <router-view :details="details" />
+    <router-view :details="GStore.details" />
+        <button
+            class="
+                flex
+                items-center
+                max-w-md
+                mx-auto
+                bg-transparent
+                hover:bg-blue-500
+                text-blue-700
+                font-semibold
+                hover:text-white
+                py-2
+                px-4
+                border border-blue-500
+                hover:border-transparent
+                rounded
+            "
+            @click="edit"
+        >
+            Edit
+        </button>
 </template>
