@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound.vue'
 import NetWorkErr from '../pages/NetworkErr.vue'
 import TravelService from '../services/TravelService'
 import GStore from '../store/index'
+import NProgress from 'nprogress'
 
 const routes = [
     {
@@ -78,4 +79,11 @@ const router = createRouter({
     routes,
 })
 
+router.beforeEach(()=>{
+    NProgress.start()
+})
+
+router.beforeEach(()=>{
+    NProgress.done()
+})
 export default router

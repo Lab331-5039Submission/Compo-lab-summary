@@ -1,15 +1,20 @@
 <script>
+import NProgress from 'nprogress'
 export default {
     inject: ['GStore'],
     methods: {
         edit() {
-            this.GStore.flashMessage = 'Traveller has been update for fight ' + this.GStore.details.trips
+            this.GStore.flashMessage = 'Traveller\'s data is updating for fight ' + this.GStore.details.trips
+            NProgress.start()
             setTimeout(() => {
-                this.GStore.flashMessage = ''
                 this.$router.push({
                     name: 'Home',
                 })
+                this.GStore.flashMessage = 'Update sucessfully'
             }, 5000)
+            setTimeout(() => {
+                this.GStore.flashMessage = ''
+            }, 7500)
         },
     },
 }
